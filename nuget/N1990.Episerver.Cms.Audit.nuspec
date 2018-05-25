@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>N1990.Episerver.Cms.Audit</id>
+    <version>1.0.0</version>
+    <authors>Nicola Ayan</authors>
+    <owners>Nicola Ayan</owners>
+	<projectUrl>https://github.com/nicolaayan/EpiserverCmsAudit</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides visualisation of how Episerver content types are used across sites</description>
+    <releaseNotes>Initial version</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Episerver CMS Audit</tags>
+    <dependencies>
+      <dependency id="EPiServer.CMS.Core" version="10.0.1" />
+	  <dependency id="EPiServer.CMS.UI.Core" version="10.0.2" />
+	  <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
+	  <dependency id="Newtonsoft.Json" version="6.0.8" />
+	  <dependency id="structuremap.web-signed" version="3.1.6.186" />
+	  <dependency id="structuremap-signed" version="3.1.6.186" />
+    </dependencies>
+  </metadata>
+  <files>
+	<file src="Views\CmsAudit\*.cshtml" target="content\Views\CmsAudit\" />
+	<file src="bin\Release\N1990.Episerver.Cms.Audit.dll" target="lib\net45" />
+	<file src="web.config.transform" target="content" />
+  </files>
+</package>
