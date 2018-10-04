@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
+using EPiServer.Personalization.VisitorGroups;
+using EPiServer.Scheduler;
+using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using N1990.Episerver.Cms.Audit.Models;
 
@@ -16,16 +21,20 @@ namespace N1990.Episerver.Cms.Audit.Business
         private readonly IContentRepository _contentRepository;
         private readonly ISiteDefinitionResolver _siteDefinitionResolver;
         private readonly ISiteDefinitionRepository _siteDefinitionRepository;
+        private readonly IVisitorGroupRepository _vgRepo;
+        private readonly IScheduledJobRepository _scheduledJobRepo;
 
         public CmsAuditor(IContentTypeRepository contentTypeRepository, IContentModelUsage contentModelUsage,
             IContentRepository contentRepository, ISiteDefinitionResolver siteDefinitionResolver,
-            ISiteDefinitionRepository siteDefinitionRepository)
+            ISiteDefinitionRepository siteDefinitionRepository, IVisitorGroupRepository vgRepo, IScheduledJobRepository scheduledJobRepo)
         {
             _contentTypeRepository = contentTypeRepository;
             _contentModelUsage = contentModelUsage;
             _contentRepository = contentRepository;
             _siteDefinitionResolver = siteDefinitionResolver;
             _siteDefinitionRepository = siteDefinitionRepository;
+            _vgRepo = vgRepo;
+            _scheduledJobRepo = scheduledJobRepo;
         }
 
         /// <summary>
@@ -45,6 +54,30 @@ namespace N1990.Episerver.Cms.Audit.Business
                         Usages = new List<ContentTypeAudit.ContentItem>()
                     })
                 .ToList();
+        }
+
+        public DateTime VGJobLastRunTime()
+        {
+            var job=_scheduledJobRepo.Get("Execute", "N1990.Episerver.Cms.Audit.Business.VisitorGroupAudit", "N1990.Episerver.Cms.Audit");
+            if (job.IsRunning) return DateTime.MaxValue;
+            return job.LastExecution;
+        }
+        public void VGJobStartManually()
+        {
+            var job = _scheduledJobRepo.Get("Execute", "N1990.Episerver.Cms.Audit.Business.VisitorGroupAudit", "N1990.Episerver.Cms.Audit");
+            if (!job.IsRunning)
+            {
+                IScheduledJobExecutor exec = ServiceLocator.Current.GetInstance<IScheduledJobExecutor>();
+                exec.StartAsync(job);
+                Thread.Sleep(500);
+            }
+        }
+
+        
+
+        public List<VGAudit> GetVisitorGroups()
+        {
+            return _vgRepo.List().Select(vg => new VGAudit() { Name = vg.Name, CriteriaCount=vg.Criteria.Count, Id=vg.Id, Usages=VisitorGroupUse.ListForVisitorGroup(vg.Id.ToString()).ToList()}).ToList();
         }
 
         /// <summary>

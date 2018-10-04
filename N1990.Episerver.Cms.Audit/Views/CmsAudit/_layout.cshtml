@@ -141,7 +141,7 @@
 	function getSiteAudits() {
 		var index = 0;
 		$tabs = $('#site-audit-section [id^=tab-]');
-		if ($tabs.length > 1) {
+		if ($tabs.length >= 1) {
 			$tabs.each(function(tab) {
 				getSiteDataForTab(this, index++);
 			});
@@ -149,7 +149,7 @@
 	}
 	function getSiteDataForTab(tab) {
 		var $tab = $(tab);
-		if ($tab.length > 0) {
+		if ($tab.length >= 0) {
 			var siteGuid = $(tab).data('siteguid');
 			showProgressBarInside($tab);
 			$.ajax({

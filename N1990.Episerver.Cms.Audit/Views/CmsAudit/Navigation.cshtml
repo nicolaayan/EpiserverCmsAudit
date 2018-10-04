@@ -26,6 +26,9 @@
                 <li class="@(actionName.ToLower() == "blocktypes" ? "active" : "")">
                     <a href="@Url.Action("BlockTypes", "CmsAudit")">Block types @MakeActiveIfItApplies("BlockTypes", actionName)</a>
                 </li>
+                <li class="@(actionName.ToLower() == "visitorgroups" ? "active" : "")">
+                    <a href="@Url.Action("VisitorGroups", "CmsAudit")">Visitor Groups @MakeActiveIfItApplies("VisitorGroups", actionName)</a>
+                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
