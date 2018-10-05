@@ -10,7 +10,7 @@
     <description>Provides visualisation of how Episerver content types and visitor groups are used across sites</description>
     <releaseNotes>Removed un-needed dependencies</releaseNotes>
     <copyright>Copyright 2018</copyright>
-    <tags>Episerver CMS Audit</tags>
+    <tags>EPiServerModulePackage Episerver CMS Audit</tags>
     <dependencies>
       <dependency id="EPiServer.CMS.Core" version="11.10.3" />
 	    <dependency id="EPiServer.CMS.UI.Core" version="11.9.1" />
@@ -18,7 +18,11 @@
   </metadata>
   <files>
 	<file src="..\N1990.Episerver.Cms.Audit\modules\_protected\CmsAudit\CmsAudit.zip" target="content\modules\_protected\CmsAudit\" />
+	<file src="..\N1990.Episerver.Cms.Audit\bin\Release\N1990.Episerver.Cms.Audit.dll" target="lib\net45" />
+	<file src="..\N1990.Episerver.Cms.Audit\bin\Release\N1990.Episerver.Cms.Audit.dll" target="lib\net46" />
+	<file src="..\N1990.Episerver.Cms.Audit\bin\Release\N1990.Episerver.Cms.Audit.dll" target="lib\net461" />
 	<file src="..\N1990.Episerver.Cms.Audit\bin\Release\N1990.Episerver.Cms.Audit.dll" target="lib\net462" />
+	<file src="..\N1990.Episerver.Cms.Audit\bin\Release\N1990.Episerver.Cms.Audit.dll" target="lib\net47" />
 	<file src="..\N1990.Episerver.Cms.Audit\web.config.transform" target="content" />
   </files>
 </package>
