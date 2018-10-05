@@ -2,23 +2,23 @@
 <package >
   <metadata>
     <id>N1990.Episerver.Cms.Audit</id>
-    <version>1.1.0</version>
-    <authors>Nicola Ayan</authors>
+    <version>1.2.0</version>
+    <authors>Nicola Ayan and Allan Thraen</authors>
     <owners>Nicola Ayan</owners>
 	<projectUrl>https://github.com/nicolaayan/EpiserverCmsAudit</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Provides visualisation of how Episerver content types are used across sites</description>
+    <description>Provides visualisation of how Episerver content types and visitor groups are used across sites</description>
     <releaseNotes>Removed un-needed dependencies</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>Episerver CMS Audit</tags>
     <dependencies>
-      <dependency id="EPiServer.CMS.Core" version="10.0.1" />
-	  <dependency id="EPiServer.CMS.UI.Core" version="10.0.2" />
+      <dependency id="EPiServer.CMS.Core" version="11.10.3" />
+	    <dependency id="EPiServer.CMS.UI.Core" version="11.9.1" />
     </dependencies>
   </metadata>
   <files>
-	<file src="..\N1990.Episerver.Cms.Audit\Views\CmsAudit\*.cshtml" target="content\Views\CmsAudit\" />
-	<file src="..\N1990.Episerver.Cms.Audit\bin\Release\N1990.Episerver.Cms.Audit.dll" target="lib\net45" />
+	<file src="..\N1990.Episerver.Cms.Audit\modules\_protected\CmsAudit\CmsAudit.zip" target="content\modules\_protected\CmsAudit\" />
+	<file src="..\N1990.Episerver.Cms.Audit\bin\Release\N1990.Episerver.Cms.Audit.dll" target="lib\net462" />
 	<file src="..\N1990.Episerver.Cms.Audit\web.config.transform" target="content" />
   </files>
 </package>
