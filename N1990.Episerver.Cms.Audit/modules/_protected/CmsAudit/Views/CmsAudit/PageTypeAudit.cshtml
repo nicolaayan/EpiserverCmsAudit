@@ -19,7 +19,7 @@
 		<ul>
 			@foreach (var usage in Model.Usages)
 			{
-				<li>@Html.Partial("~/Views/CmsAudit/RenderUsage.cshtml", usage)</li>
+				<li>@Html.Partial("RenderUsage", usage)</li>
 			}
 		</ul>
 	</td>
