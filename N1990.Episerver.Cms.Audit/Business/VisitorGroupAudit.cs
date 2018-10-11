@@ -7,6 +7,7 @@ using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
 using System.Linq;
 using N1990.Episerver.Cms.Audit.Models;
+using EPiServer.Security;
 
 namespace N1990.Episerver.Cms.Audit.Business
 {
@@ -49,6 +50,27 @@ namespace N1990.Episerver.Cms.Audit.Business
             foreach (var cr in repo.GetDescendents(ContentReference.RootPage))
             {
                 var c = repo.Get<IContentData>(cr);
+                if (c is ISecurable)
+                {
+                    var sec=(c as ISecurable).GetSecurityDescriptor();
+                    if(sec is ContentAccessControlList)
+                    {
+                        var cacl = (sec as ContentAccessControlList);
+                        foreach(var ca in cacl.Where(cac => cac.Value.EntityType == SecurityEntityType.VisitorGroup))
+                        {
+                            usesfound++;
+                            VisitorGroupUse vgu = new VisitorGroupUse();
+                            vgu.Seen = DateTime.Now;
+                            vgu.Content = cr;
+                            vgu.VisitorGroup = visitorgrouplist.Where(vvg => vvg.Name == ca.Value.Name).Select(vvg => vvg.Id.ToString()).FirstOrDefault();
+                            vgu.PropertyName = "(Content Access Rights)";
+                            vgu.ContentName = (c as IContent).Name;
+                            vgu.ContentType = (c is PageData) ? "Page" : (c is BlockData) ? "Block" : "Other";
+                            VisitorGroupUse.Save(vgu);
+                        }
+                    }
+                    //Look for EntityType="VisitorGroup" and then match on name?!
+                }
                 foreach (var p in c.Property)
                 {
                     if (p.Value == null) continue;
