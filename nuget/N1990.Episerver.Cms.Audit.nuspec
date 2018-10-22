@@ -12,12 +12,13 @@
     <copyright>Copyright 2018</copyright>
     <tags>EPiServerModulePackage Episerver CMS Audit</tags>
     <dependencies>
-      <dependency id="EPiServer.CMS.Core" version="11.10.3" />
-	    <dependency id="EPiServer.CMS.UI.Core" version="11.9.1" />
+      <dependency id="EPiServer.CMS.Core" version="11.1.0" />
+	    <dependency id="EPiServer.CMS.UI.Core" version="11.1.0" />
     </dependencies>
   </metadata>
   <files>
-	<file src="..\N1990.Episerver.Cms.Audit\modules\_protected\CmsAudit\CmsAudit.zip" target="content\modules\_protected\CmsAudit\" />
+	<!--<file src="..\N1990.Episerver.Cms.Audit\modules\_protected\CmsAudit\CmsAudit.zip" target="content\modules\_protected\CmsAudit\" />-->
+	<file src="..\N1990.Episerver.Cms.Audit\modules\_protected\CmsAudit\**" target="content\modules\_protected\CmsAudit\" />
 	<file src="..\N1990.Episerver.Cms.Audit\bin\Release\N1990.Episerver.Cms.Audit.dll" target="lib\net45" />
 	<file src="..\N1990.Episerver.Cms.Audit\bin\Release\N1990.Episerver.Cms.Audit.dll" target="lib\net46" />
 	<file src="..\N1990.Episerver.Cms.Audit\bin\Release\N1990.Episerver.Cms.Audit.dll" target="lib\net461" />
