@@ -8,7 +8,8 @@ using N1990.Episerver.Cms.Audit.Models;
 
 namespace N1990.Episerver.Cms.Audit.Controllers
 {
-	public class CmsAuditController : Controller
+    [Authorize(Roles = "WebEditors,WebAdmins,Administrators")]
+    public class CmsAuditController : Controller
     {
         private readonly ICmsAuditor _cmsAuditor;
 
@@ -65,6 +66,25 @@ namespace N1990.Episerver.Cms.Audit.Controllers
         {
             var model = _cmsAuditor.GetContentTypeAudit(contentTypeId, true, false);
             return View(model);
+        }
+
+        public ActionResult VisitorGroups()
+        {
+            var model = new CmsAuditPage();
+            model.VisitorGroups = _cmsAuditor.GetVisitorGroups().OrderBy(v => v.Name).ToList();
+            model.VGLastRunTime = _cmsAuditor.VGJobLastRunTime();
+            return View(model);
+        }
+
+        public ActionResult RunVGJob()
+        {
+            _cmsAuditor.VGJobStartManually();
+            return RedirectToAction("VisitorGroups");
+        }
+
+        public ActionResult VisitorGroupAudit(string visitorGroupID)
+        {
+            return View();
         }
     }
 }

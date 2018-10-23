@@ -102,7 +102,7 @@
 @Html.Raw(Html.GlobalMenu())
 <main class="container">
 	<header>
-		@Html.Partial("~/Views/CmsAudit/Navigation.cshtml")
+		@Html.Partial("Navigation")
 	</header>
 	@RenderBody()
 
@@ -149,7 +149,7 @@
 	}
 	function getSiteDataForTab(tab) {
 		var $tab = $(tab);
-		if ($tab.length > 0) {
+		if ($tab.length >= 0) {
 			var siteGuid = $(tab).data('siteguid');
 			showProgressBarInside($tab);
 			$.ajax({

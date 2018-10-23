@@ -9,6 +9,10 @@ namespace N1990.Episerver.Cms.Audit.Business
     {
         List<ContentTypeAudit> GetContentTypesOfType<T>();
 
+        List<VGAudit> GetVisitorGroups();
+        DateTime VGJobLastRunTime();
+        void VGJobStartManually();
+
         List<ContentTypeAudit> GetContentItemsOfTypes(List<ContentTypeAudit> contentTypes,
             bool includeReferences, bool includeParentDetail);
 

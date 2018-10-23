@@ -1,12 +1,11 @@
-@using EPiServer.Web.Mvc.Html
-@using N1990.Episerver.Cms.Audit.Business
 @using N1990.Episerver.Cms.Audit.Models
 @model CmsAuditPage
 @{
-    Layout = "~/Views/CmsAudit/_layout.cshtml";
+    Layout = "_layout.cshtml";
     var pageTypeCtr = 1;
 }
-<div id="cms-content-types" data-type="page">
+
+<div id="cms-content-types" data-type="block">
 	<div class="progress progress-striped">
 		<div class="progress-bar progress-bar-info" style="width: @(100/Model.ContentTypes.Count)%">
 			Working on it...
@@ -16,23 +15,25 @@
 		<thead>
 			<tr>
 				<th></th>
-				<th>Page type</th>
+				<th>Block type</th>
 				<th>Usages</th>
 				<th><i class="glyphicon glyphicon-info-sign"></i></th>
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var pageType in Model.ContentTypes.OrderByDescending(ct => ct.Usages.Count))
+			@foreach (var blockType in Model.ContentTypes.OrderByDescending(ct => ct.Usages.Count))
 			{
-				<tr data-contenttypeid="@pageType.ContentTypeId" class="ctid-@pageType.ContentTypeId">
+				<tr data-contenttypeid="@blockType.ContentTypeId" class="ctid-@blockType.ContentTypeId">
 					<td class="number">@(pageTypeCtr++)</td>
-					<td>@pageType.Name</td>
-					<td class="usages">
+					<td>@blockType.Name</td>
+					<td>
 						<div class="loader small">Loading...</div>
 					</td>
-					<td>@Html.Raw(pageType.UsagesExpandButton)</td>
+					<td>@Html.Raw(blockType.UsagesExpandButton)</td>
 				</tr>
+
 			}
 		</tbody>
 	</table>
 </div>
+
