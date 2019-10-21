@@ -95,11 +95,27 @@
 				width: 1.5em;
 				height: 1.5em;
 			}
+			
+		.container {
+            display: block;
+            padding-top: 50px;
+		}
+			
+		.mdc-top-app-bar__title
+		{
+		    font-size: inherit !important;
+		}
+			
+		.mdc-tab
+		{
+		    font-size: inherit !important;
+		}
+		
 	</style>
 </head>
 <body>
 @Html.Raw(Html.ShellInitializationScript())
-@Html.Raw(Html.GlobalMenu())
+@Html.Raw(EPiServer.Shell.Navigation.MenuHelper.CreatePlatformNavigationMenu())
 <main class="container">
 	<header>
 		@Html.Partial("Navigation")
