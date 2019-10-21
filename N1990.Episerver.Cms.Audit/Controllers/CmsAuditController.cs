@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using EPiServer.DataAbstraction;
-using EPiServer.Shell.Navigation;
 using N1990.Episerver.Cms.Audit.Business;
 using N1990.Episerver.Cms.Audit.Models;
 
@@ -18,7 +17,6 @@ namespace N1990.Episerver.Cms.Audit.Controllers
 	        _cmsAuditor = cmsAuditor;
 	    }
 
-		[MenuItem("/global/cms/audit", Text = "Audit")]
 		public ActionResult Index()
 		{
 			var model = new CmsAuditPage()
