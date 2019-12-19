@@ -184,7 +184,6 @@
     <Content Include="modules\_protected\CmsAudit\Views\CmsAudit\BlockTypes.cshtml" />
     <Content Include="modules\_protected\CmsAudit\Views\CmsAudit\Index.cshtml" />
     <Content Include="modules\_protected\CmsAudit\Views\CmsAudit\IndexSiteAudit.cshtml" />
-    <Content Include="modules\_protected\CmsAudit\Views\CmsAudit\Navigation.cshtml" />
     <Content Include="modules\_protected\CmsAudit\Views\CmsAudit\PageTypeAudit.cshtml" />
     <Content Include="modules\_protected\CmsAudit\Views\CmsAudit\RenderUsage.cshtml" />
     <Content Include="modules\_protected\CmsAudit\Views\CmsAudit\PageTypes.cshtml" />

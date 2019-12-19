@@ -98,7 +98,7 @@
 			
 		.container {
             display: block;
-            padding-top: 50px;
+            padding-top: 70px;
 		}
 			
 		.mdc-top-app-bar__title
@@ -117,9 +117,6 @@
 @Html.Raw(Html.ShellInitializationScript())
 @Html.Raw(EPiServer.Shell.Navigation.MenuHelper.CreatePlatformNavigationMenu())
 <main class="container">
-	<header>
-		@Html.Partial("Navigation")
-	</header>
 	@RenderBody()
 
 </main>

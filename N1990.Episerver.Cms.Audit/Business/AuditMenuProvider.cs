@@ -9,6 +9,7 @@ namespace N1990.Episerver.Cms.Audit.Business
     [MenuProvider]
     public class AuditMenuProvider : IMenuProvider
     {
+        public const string MenuPath = "/global/cms/audit";
         private readonly LocalizationService _localizationService;
 
         public AuditMenuProvider(LocalizationService localizationService)
@@ -18,56 +19,59 @@ namespace N1990.Episerver.Cms.Audit.Business
 
         public IEnumerable<MenuItem> GetMenuItems()
         {
-            const string menuPath = "/global/cms/audit";
             var menuText = _localizationService.GetString("/cmsaudit/menus/audit", "Audit");
 
-            // Register menu items for each controller action but with the same path 
-            // key to ensure the menu displays in the new Episerver UI
-            var menuIndex =
+            var sectionMenu = 
+                new DropDownMenuItem(menuText, MenuPath) {SortIndex = int.MaxValue, IsAvailable = (_) => true};
+
+            var menuSites =
                 new UrlMenuItem(
-                    menuText,
-                    menuPath,
-                    Paths.ToResource("CmsAudit", "")) 
+                    _localizationService.GetString("/cmsaudit/menus/audit/sites", "Sites"),
+                    MenuPath + "/sites",
+                    Paths.ToResource("CmsAudit", ""))
                 {
                     IsAvailable = (request) => true,
-                    SortIndex = int.MaxValue
+                    SortIndex = 100
                 };
 
             var menuPageTypes =
                 new UrlMenuItem(
-                    menuText,
-                    menuPath,
+                    _localizationService.GetString("/cmsaudit/menus/audit/pagetypes", "Page Types"),
+                    MenuPath + "/pagetypes",
                     Paths.ToResource("CmsAudit", "CmsAudit/PageTypes"))
                 {
-                    IsAvailable = (request) => false,
-                    SortIndex = int.MaxValue
+                    IsAvailable = (request) => true,
+                    SortIndex = 200
                 };
 
             var menuBlockTypes =
                 new UrlMenuItem(
-                    menuText,
-                    menuPath,
+                    _localizationService.GetString("/cmsaudit/menus/audit/blocktypes", "Block Types"),
+                    MenuPath + "/blocktypes",
                     Paths.ToResource("CmsAudit", "CmsAudit/BlockTypes"))
                 {
-                    IsAvailable = (request) => false,
-                    SortIndex = int.MaxValue
+                    IsAvailable = (request) => true,
+                    SortIndex = 300
                 };
 
             var menuVisitorGroups =
                 new UrlMenuItem(
-                    menuText,
-                    menuPath,
+                    _localizationService.GetString("/cmsaudit/menus/audit/visitorgroups", "Visitor Groups"),
+                    MenuPath + "/visitorgroups",
                     Paths.ToResource("CmsAudit", "CmsAudit/VisitorGroups"))
                 {
-                    IsAvailable = (request) => false,
-                    SortIndex = int.MaxValue
+                    IsAvailable = (request) => true,
+                    SortIndex = 400
                 };
 
-            var list = new List<MenuItem>();
-            list.Add(menuIndex);
-            list.Add(menuPageTypes);
-            list.Add(menuBlockTypes);
-            list.Add(menuVisitorGroups);
+            var list = new List<MenuItem>
+            {
+                sectionMenu,
+                menuSites,
+                menuPageTypes,
+                menuBlockTypes,
+                menuVisitorGroups
+            };
             return list;
         }
     }
