@@ -8,30 +8,29 @@ using N1990.Episerver.Cms.Audit.Models;
 namespace N1990.Episerver.Cms.Audit.Controllers
 {
     [Authorize(Roles = "WebEditors,WebAdmins,Administrators")]
-    public class CmsAuditController : Controller
+    public class PageTypesController : Controller
     {
         private readonly ICmsAuditor _cmsAuditor;
 
-        public CmsAuditController(ICmsAuditor cmsAuditor)
+        public PageTypesController(ICmsAuditor cmsAuditor)
 	    {
 	        _cmsAuditor = cmsAuditor;
 	    }
 
-		public ActionResult Index()
-		{
-			var model = new CmsAuditPage()
-			{
-				Sites = _cmsAuditor.GetSiteDefinitions().Select(sd => new SiteAudit
-				{
-                    SiteDefo = sd
-				}).ToList()
-			};
+        public ActionResult Index()
+        {
+            var model = new CmsAuditPage();
+
+            var pageTypes = _cmsAuditor.GetContentTypesOfType<PageType>();
+
+            model.ContentTypes = pageTypes;
+
             return View(model);
         }
 
-        public ActionResult IndexSiteAudit(Guid siteGuid)
+        public ActionResult PageTypeAudit(int contentTypeId)
         {
-            var model = _cmsAuditor.GetSiteAudit(siteGuid);
+            var model = _cmsAuditor.GetContentTypeAudit(contentTypeId, false, true);
             return View(model);
         }
     }

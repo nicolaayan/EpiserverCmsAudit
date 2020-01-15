@@ -38,7 +38,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                 new UrlMenuItem(
                     _localizationService.GetString("/cmsaudit/menus/audit/pagetypes", "Page Types"),
                     MenuPath + "/pagetypes",
-                    Paths.ToResource("CmsAudit", "CmsAudit/PageTypes"))
+                    Paths.ToResource("CmsAudit", "PageTypes"))
                 {
                     IsAvailable = (request) => true,
                     SortIndex = 200
@@ -48,7 +48,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                 new UrlMenuItem(
                     _localizationService.GetString("/cmsaudit/menus/audit/blocktypes", "Block Types"),
                     MenuPath + "/blocktypes",
-                    Paths.ToResource("CmsAudit", "CmsAudit/BlockTypes"))
+                    Paths.ToResource("CmsAudit", "BlockTypes"))
                 {
                     IsAvailable = (request) => true,
                     SortIndex = 300
@@ -58,7 +58,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                 new UrlMenuItem(
                     _localizationService.GetString("/cmsaudit/menus/audit/visitorgroups", "Visitor Groups"),
                     MenuPath + "/visitorgroups",
-                    Paths.ToResource("CmsAudit", "CmsAudit/VisitorGroups"))
+                    Paths.ToResource("CmsAudit", "VisitorGroups"))
                 {
                     IsAvailable = (request) => true,
                     SortIndex = 400
