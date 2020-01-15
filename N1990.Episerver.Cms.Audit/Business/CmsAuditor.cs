@@ -122,29 +122,34 @@ namespace N1990.Episerver.Cms.Audit.Business
                     ContentItem = _contentRepository.Get<IContent>(distinctContentUsage.ContentLink)
                 });
 
-
-            contentTypeAudit.Usages = contentModelUsages.Select(cmu => new ContentTypeAudit.ContentItem
+            foreach (var cmu in contentModelUsages)
             {
-                Name = cmu.Name,
-                ContentLink = cmu.ContentLink,
-                SiteId = _siteDefinitionResolver.GetByContent(cmu.ContentLink, true).Id,
-                Parent = includeParentDetail && cmu.ContentItem.ParentLink != ContentReference.EmptyReference
-                    ? new ContentTypeAudit.ContentItem
-                    {
-                        Name = _contentRepository.Get<IContent>(cmu.ContentItem.ParentLink).Name,
-                        ContentLink = cmu.ContentItem.ParentLink
-                    }
-                    : null,
-                PageReferences = includeReferences
-                    ? _contentRepository.GetReferencesToContent(cmu.ContentLink, true)
-                        .Select(rtc => new ContentTypeAudit.ContentItem.PageReference
+                var siteDefinition = _siteDefinitionResolver.GetByContent(cmu.ContentLink, true);
+
+                contentTypeAudit.Usages.Add(new ContentTypeAudit.ContentItem
+                {
+                    Name = cmu.Name,
+                    ContentLink = cmu.ContentLink,
+                    SiteId = siteDefinition?.Id ?? Guid.Empty,
+                    Parent = includeParentDetail && cmu.ContentItem.ParentLink != ContentReference.EmptyReference
+                        ? new ContentTypeAudit.ContentItem
                         {
-                            Name = rtc.OwnerName,
-                            ContentLink = rtc.OwnerID,
-                            SiteId = _siteDefinitionResolver.GetByContent(rtc.OwnerID, true).Id
-                        }).ToList()
-                    : new List<ContentTypeAudit.ContentItem.PageReference>()
-            }).ToList();
+                            Name = _contentRepository.Get<IContent>(cmu.ContentItem.ParentLink).Name,
+                            ContentLink = cmu.ContentItem.ParentLink
+                        }
+                        : null,
+                    PageReferences = includeReferences
+                        ? _contentRepository.GetReferencesToContent(cmu.ContentLink, true)
+                            .Select(rtc => new ContentTypeAudit.ContentItem.PageReference
+                            {
+                                Name = rtc.OwnerName,
+                                ContentLink = rtc.OwnerID,
+                                SiteId = _siteDefinitionResolver.GetByContent(rtc.OwnerID, true).Id
+                            }).ToList()
+                        : new List<ContentTypeAudit.ContentItem.PageReference>()
+                });
+
+            }
         }
 
         /// <summary>
@@ -236,8 +241,10 @@ namespace N1990.Episerver.Cms.Audit.Business
         /// <returns></returns>
         public List<SiteDefinition> GetSiteDefinitions()
         {
-            return _siteDefinitionRepository.List()
+            var list = _siteDefinitionRepository.List()
                 .ToList();
+            list.Add(new SiteDefinition {Id = Guid.Empty, Name = "DOES NOT BELONG TO ANY SITE"});
+            return list;
         }
     }
 }

@@ -21,7 +21,9 @@ namespace N1990.Episerver.Cms.Audit.Controllers
 		{
 			var model = new CmsAuditPage()
 			{
-				Sites = _cmsAuditor.GetSiteDefinitions().Select(sd => new SiteAudit
+				Sites = _cmsAuditor.GetSiteDefinitions()
+                    .Where(sd => sd.Id != Guid.Empty)
+                    .Select(sd => new SiteAudit
 				{
                     SiteDefo = sd
 				}).ToList()
