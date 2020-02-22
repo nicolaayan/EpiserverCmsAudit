@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EPiServer.Scheduler;
 using EPiServer.Web;
 using N1990.Episerver.Cms.Audit.Models;
 
@@ -10,16 +11,13 @@ namespace N1990.Episerver.Cms.Audit.Business
         List<ContentTypeAudit> GetContentTypesOfType<T>();
 
         List<VGAudit> GetVisitorGroups();
-        DateTime VGJobLastRunTime();
-        void VGJobStartManually();
+        DateTime JobLastRunTime<T>() where T : ScheduledJobBase;
+        void JobStartManually<T>() where T : ScheduledJobBase;
 
-        List<ContentTypeAudit> GetContentItemsOfTypes(List<ContentTypeAudit> contentTypes,
-            bool includeReferences, bool includeParentDetail);
+        ContentTypeAudit GenerateContentTypeAudit(int contentTypeId,
+                    bool includeReferences, bool includeParentDetail);
 
-        void PopulateContentItemsOfType(ContentTypeAudit contentTypeAudit,
-            bool includeReferences, bool includeParentDetail);
-
-        ContentTypeAudit GetContentTypeAudit(int contentTypeId, bool includeReferences, bool includeParentDetail);
+        ContentTypeAudit GetContentTypeAudit(int contentTypeId);
 
         SiteAudit GetSiteAudit(Guid siteGuid);
 

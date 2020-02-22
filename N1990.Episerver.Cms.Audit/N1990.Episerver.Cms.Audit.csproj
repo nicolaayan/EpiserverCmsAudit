@@ -168,6 +168,7 @@
     <Compile Include="Business\DependencyResolverInitialisation.cs" />
     <Compile Include="Business\HtmlHelpers.cs" />
     <Compile Include="Business\ICmsAuditor.cs" />
+    <Compile Include="Business\BlockTypeAudit.cs" />
     <Compile Include="Business\VisitorGroupAudit.cs" />
     <Compile Include="Controllers\BlockTypesController.cs" />
     <Compile Include="Controllers\VisitorGroupsController.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Models\ContentTypeAudit.cs" />
     <Compile Include="Models\SiteAudit.cs" />
     <Compile Include="Models\VGAudit.cs" />
+    <Compile Include="Models\BlockTypeUse.cs" />
     <Compile Include="Models\VisitorGroupUse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

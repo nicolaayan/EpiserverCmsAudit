@@ -21,13 +21,13 @@ namespace N1990.Episerver.Cms.Audit.Controllers
         {
             var model = new CmsAuditPage();
             model.VisitorGroups = _cmsAuditor.GetVisitorGroups().OrderBy(v => v.Name).ToList();
-            model.VGLastRunTime = _cmsAuditor.VGJobLastRunTime();
+            model.JobLastRunTime = _cmsAuditor.JobLastRunTime<VisitorGroupAudit>();
             return View(model);
         }
 
         public ActionResult RunVGJob()
         {
-            _cmsAuditor.VGJobStartManually();
+            _cmsAuditor.JobStartManually<VisitorGroupAudit>();
             return RedirectToAction("Index");
         }
 

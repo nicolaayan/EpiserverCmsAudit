@@ -30,7 +30,7 @@ namespace N1990.Episerver.Cms.Audit.Controllers
 
         public ActionResult PageTypeAudit(int contentTypeId)
         {
-            var model = _cmsAuditor.GetContentTypeAudit(contentTypeId, false, true);
+            var model = _cmsAuditor.GenerateContentTypeAudit(contentTypeId, false, true);
             return View(model);
         }
     }
