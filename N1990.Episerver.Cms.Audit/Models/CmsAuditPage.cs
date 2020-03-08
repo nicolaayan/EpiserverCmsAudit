@@ -10,7 +10,7 @@ namespace N1990.Episerver.Cms.Audit.Models
         public List<ContentTypeAudit> ContentTypes { get; set; }
 
         public List<VGAudit>   VisitorGroups { get; set; }
-        public DateTime VGLastRunTime { get; set; }
+        public DateTime JobLastRunTime { get; set; }
 
         public CmsAuditPage()
 		{

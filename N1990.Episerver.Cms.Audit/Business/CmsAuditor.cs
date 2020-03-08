@@ -11,6 +11,7 @@ using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using N1990.Episerver.Cms.Audit.Models;
+using Newtonsoft.Json;
 
 namespace N1990.Episerver.Cms.Audit.Business
 {
@@ -56,15 +57,15 @@ namespace N1990.Episerver.Cms.Audit.Business
                 .ToList();
         }
 
-        public DateTime VGJobLastRunTime()
+        public DateTime JobLastRunTime<T>() where T : ScheduledJobBase
         {
-            var job=_scheduledJobRepo.Get("Execute", "N1990.Episerver.Cms.Audit.Business.VisitorGroupAudit", "N1990.Episerver.Cms.Audit");
+            var job = _scheduledJobRepo.Get("Execute", typeof(T).FullName, typeof(T).Assembly.GetName().Name);
             if (job.IsRunning) return DateTime.MaxValue;
             return job.LastExecution;
         }
-        public void VGJobStartManually()
+        public void JobStartManually<T>() where T : ScheduledJobBase
         {
-            var job = _scheduledJobRepo.Get("Execute", "N1990.Episerver.Cms.Audit.Business.VisitorGroupAudit", "N1990.Episerver.Cms.Audit");
+            var job = _scheduledJobRepo.Get("Execute", typeof(T).FullName, typeof(T).Assembly.GetName().Name);
             if (!job.IsRunning)
             {
                 IScheduledJobExecutor exec = ServiceLocator.Current.GetInstance<IScheduledJobExecutor>();
@@ -72,28 +73,9 @@ namespace N1990.Episerver.Cms.Audit.Business
                 Thread.Sleep(500);
             }
         }
-
-        
-
         public List<VGAudit> GetVisitorGroups()
         {
-            return _vgRepo.List().Select(vg => new VGAudit() { Name = vg.Name, CriteriaCount=vg.Criteria.Count, Id=vg.Id, Usages=VisitorGroupUse.ListForVisitorGroup(vg.Id.ToString()).ToList()}).ToList();
-        }
-
-        /// <summary>
-        /// Returns a list of content items that use the provided content types
-        /// </summary>
-        /// <param name="contentTypes">Specify the content types you want to get content items for</param>
-        /// <param name="includeReferences">"True" if you want references to the content item to be included</param>
-        /// <param name="includeParentDetail">"True" if you want to include basic details of the content item's parent</param>
-        /// <returns></returns>
-        public List<ContentTypeAudit> GetContentItemsOfTypes(List<ContentTypeAudit> contentTypes, bool includeReferences, bool includeParentDetail)
-        {
-            foreach (var contentTypeAudit in contentTypes)
-            {
-                PopulateContentItemsOfType(contentTypeAudit, includeReferences, includeParentDetail);
-            }
-            return contentTypes;
+            return _vgRepo.List().Select(vg => new VGAudit() { Name = vg.Name, CriteriaCount = vg.Criteria.Count, Id = vg.Id, Usages = VisitorGroupUse.ListForVisitorGroup(vg.Id.ToString()).ToList() }).ToList();
         }
 
         /// <summary>
@@ -102,10 +84,18 @@ namespace N1990.Episerver.Cms.Audit.Business
         /// <param name="contentTypeAudit"></param>
         /// <param name="includeReferences"></param>
         /// <param name="includeParentDetail"></param>
-        public void PopulateContentItemsOfType(ContentTypeAudit contentTypeAudit, 
+        public ContentTypeAudit GenerateContentTypeAudit(int contentTypeId,
             bool includeReferences, bool includeParentDetail)
         {
-            var contentType = _contentTypeRepository.Load(contentTypeAudit.ContentTypeId);
+            var contentType = _contentTypeRepository.Load(contentTypeId);
+
+            var contentTypeAudit = new ContentTypeAudit
+            {
+                ContentTypeId = contentTypeId,
+                Name = contentType.Name,
+                Usages = new List<ContentTypeAudit.ContentItem>()
+            };
+
             var contentModelUsages = _contentModelUsage.ListContentOfContentType(contentType)
                 .Where(cmu => cmu.ContentLink != ContentReference.WasteBasket
                               && !_contentRepository.GetAncestors(cmu.ContentLink).Select(ic => ic.ContentLink).Contains(ContentReference.WasteBasket))
@@ -150,6 +140,8 @@ namespace N1990.Episerver.Cms.Audit.Business
                 });
 
             }
+
+            return contentTypeAudit;
         }
 
         /// <summary>
@@ -159,19 +151,16 @@ namespace N1990.Episerver.Cms.Audit.Business
         /// <param name="includeReferences"></param>
         /// <param name="includeParentDetail"></param>
         /// <returns></returns>
-        public ContentTypeAudit GetContentTypeAudit(int contentTypeId, bool includeReferences, bool includeParentDetail)
+        public ContentTypeAudit GetContentTypeAudit(int contentTypeId)
         {
-            var contentType = _contentTypeRepository.Load(contentTypeId);
-            var contentTypeAudit = new ContentTypeAudit
+            var use = BlockTypeUse.Get(contentTypeId);
+
+            if(use != null)
             {
-                ContentTypeId = contentTypeId,
-                Name = contentType.Name,
-                Usages = new List<ContentTypeAudit.ContentItem>()
-            };
+                return JsonConvert.DeserializeObject<ContentTypeAudit>(use.AuditJson);
+            }
 
-            PopulateContentItemsOfType(contentTypeAudit, includeReferences, includeParentDetail);
-
-            return contentTypeAudit;
+            return new ContentTypeAudit();
         }
 
         /// <summary>
@@ -234,7 +223,7 @@ namespace N1990.Episerver.Cms.Audit.Business
 
             return siteAudit;
         }
-        
+
         /// <summary>
         /// Gets a list of all sites
         /// </summary>
@@ -243,7 +232,7 @@ namespace N1990.Episerver.Cms.Audit.Business
         {
             var list = _siteDefinitionRepository.List()
                 .ToList();
-            list.Add(new SiteDefinition {Id = Guid.Empty, Name = "DOES NOT BELONG TO ANY SITE"});
+            list.Add(new SiteDefinition { Id = Guid.Empty, Name = "DOES NOT BELONG TO ANY SITE" });
             return list;
         }
     }
