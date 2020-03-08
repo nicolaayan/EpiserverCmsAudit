@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>N1990.Episerver.Cms.Audit</id>
-    <version>1.4.2.0</version>
+    <version>1.4.3.0</version>
     <authors>Nicola Ayan, Allan Thraen and David Knipe</authors>
     <owners>Nicola Ayan</owners>
 	<projectUrl>https://github.com/nicolaayan/EpiserverCmsAudit</projectUrl>

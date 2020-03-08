@@ -134,7 +134,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                             {
                                 Name = rtc.OwnerName,
                                 ContentLink = rtc.OwnerID,
-                                SiteId = _siteDefinitionResolver.GetByContent(rtc.OwnerID, true).Id
+                                SiteId = _siteDefinitionResolver.GetByContent(rtc.OwnerID, true)?.Id ?? Guid.Empty
                             }).ToList()
                         : new List<ContentTypeAudit.ContentItem.PageReference>()
                 });
