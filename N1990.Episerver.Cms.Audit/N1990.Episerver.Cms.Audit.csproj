@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\AuditMenuProvider.cs" />
+    <Compile Include="Business\PageTypeAuditScheduledJob.cs" />
     <Compile Include="Business\CmsAuditor.cs" />
     <Compile Include="Business\DependencyResolverInitialisation.cs" />
     <Compile Include="Business\HtmlHelpers.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Controllers\VisitorGroupsController.cs" />
     <Compile Include="Controllers\PageTypesController.cs" />
     <Compile Include="Controllers\CmsAuditController.cs" />
+    <Compile Include="Models\PageTypeUsagesData.cs" />
     <Compile Include="Models\CmsAuditPage.cs" />
     <Compile Include="Models\ContentTypeAudit.cs" />
     <Compile Include="Models\SiteAudit.cs" />

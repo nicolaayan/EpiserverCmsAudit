@@ -31,7 +31,7 @@ namespace N1990.Episerver.Cms.Audit.Controllers
 
         public ActionResult BlockTypeAudit(int contentTypeId)
         {
-            var model = _cmsAuditor.GetContentTypeAudit(contentTypeId);
+            var model = _cmsAuditor.GetBlockTypeAudit(contentTypeId);
             return View(model);
         }
     }

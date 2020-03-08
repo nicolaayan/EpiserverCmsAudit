@@ -20,17 +20,21 @@ namespace N1990.Episerver.Cms.Audit.Controllers
         public ActionResult Index()
         {
             var model = new CmsAuditPage();
-
-            var pageTypes = _cmsAuditor.GetContentTypesOfType<PageType>();
-
-            model.ContentTypes = pageTypes;
+            model.ContentTypes = _cmsAuditor.GetContentTypesOfType<PageType>();
+            model.JobLastRunTime = _cmsAuditor.JobLastRunTime<PageTypeAuditScheduledJob>();
 
             return View(model);
         }
 
+        public ActionResult RunJob()
+        {
+            _cmsAuditor.JobStartManually<PageTypeAuditScheduledJob>();
+            return RedirectToAction("Index");
+        }
+
         public ActionResult PageTypeAudit(int contentTypeId)
         {
-            var model = _cmsAuditor.GenerateContentTypeAudit(contentTypeId, false, true);
+            var model = _cmsAuditor.GetPageTypeAudit(contentTypeId);
             return View(model);
         }
     }

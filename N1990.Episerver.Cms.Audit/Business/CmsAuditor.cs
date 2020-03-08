@@ -145,17 +145,36 @@ namespace N1990.Episerver.Cms.Audit.Business
         }
 
         /// <summary>
-        /// Gets a list of content items of the provided content type
+        /// Gets a list of content items of the provided block type
         /// </summary>
         /// <param name="contentTypeId"></param>
         /// <param name="includeReferences"></param>
         /// <param name="includeParentDetail"></param>
         /// <returns></returns>
-        public ContentTypeAudit GetContentTypeAudit(int contentTypeId)
+        public ContentTypeAudit GetBlockTypeAudit(int contentTypeId)
         {
             var use = BlockTypeUse.Get(contentTypeId);
 
             if(use != null)
+            {
+                return JsonConvert.DeserializeObject<ContentTypeAudit>(use.AuditJson);
+            }
+
+            return new ContentTypeAudit();
+        }
+
+        /// <summary>
+        /// Gets a list of content items of the provided page type
+        /// </summary>
+        /// <param name="contentTypeId"></param>
+        /// <param name="includeReferences"></param>
+        /// <param name="includeParentDetail"></param>
+        /// <returns></returns>
+        public ContentTypeAudit GetPageTypeAudit(int contentTypeId)
+        {
+            var use = PageTypeUsagesData.Get(contentTypeId);
+
+            if (use != null)
             {
                 return JsonConvert.DeserializeObject<ContentTypeAudit>(use.AuditJson);
             }

@@ -17,7 +17,8 @@ namespace N1990.Episerver.Cms.Audit.Business
         ContentTypeAudit GenerateContentTypeAudit(int contentTypeId,
                     bool includeReferences, bool includeParentDetail);
 
-        ContentTypeAudit GetContentTypeAudit(int contentTypeId);
+        ContentTypeAudit GetBlockTypeAudit(int contentTypeId);
+        ContentTypeAudit GetPageTypeAudit(int contentTypeId);
 
         SiteAudit GetSiteAudit(Guid siteGuid);
 
