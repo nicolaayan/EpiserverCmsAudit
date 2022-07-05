@@ -7,7 +7,7 @@ using N1990.Episerver.Cms.Audit.Models;
 
 namespace N1990.Episerver.Cms.Audit.Controllers
 {
-    [Authorize(Roles = "WebEditors,WebAdmins,Administrators")]
+    [Authorize(Roles = "AuditAdmins")]
     public class PageTypesController : Controller
     {
         private readonly ICmsAuditor _cmsAuditor;
