@@ -203,28 +203,30 @@
     }
     function getContentTypeAudit(contentTypeRow) {
         var $contentTypeRow = $(contentTypeRow);
-        var contentTypeId = $contentTypeRow.data('contenttypeid');
-        var url = $('#cms-content-types').data('type') == 'page'
-            ? 'pagetypes/pagetypeaudit'
-            : ($('#cms-content-types').data('type') == 'block' ? 'blocktypes/blocktypeaudit' : '');
-        if (url !== '') {
-            $.ajax({
-                url: url,
-                data: {
-                    contentTypeId: contentTypeId
-                },
-                error: function (xhr, status, error) {
-                    $contentTypeRow.find('td.usages').text("Unknown. Error encountered.");
-                }
-            }).done(function (response) {
-                var rowNumber = $contentTypeRow.find('.number').text();
-                var $response = $(response);
-                $response.find('.number').text(rowNumber);
-                $contentTypeRow.replaceWith($response);
-                var progressPercentage = 100 - ($('#cms-content-types tr .loader').length * 100 / $contentTypes.length);
-                updateProgressBar('#cms-content-types .progress', progressPercentage);
-            });
-        }
+		var contentTypeId = $contentTypeRow.data('contenttypeid');
+		if (contentTypeId != undefined) {
+			var url = $('#cms-content-types').data('type') == 'page'
+				? 'pagetypes/pagetypeaudit'
+				: ($('#cms-content-types').data('type') == 'block' ? 'blocktypes/blocktypeaudit' : '');
+			if (url !== '') {
+				$.ajax({
+					url: url,
+					data: {
+						contentTypeId: contentTypeId
+					},
+					error: function (xhr, status, error) {
+						$contentTypeRow.find('td.usages').text("Unknown. Error encountered.");
+					}
+				}).done(function (response) {
+					var rowNumber = $contentTypeRow.find('.number').text();
+					var $response = $(response);
+					$response.find('.number').text(rowNumber);
+					$contentTypeRow.replaceWith($response);
+					var progressPercentage = 100 - ($('#cms-content-types tr .loader').length * 100 / $contentTypes.length);
+					updateProgressBar('#cms-content-types .progress', progressPercentage);
+				});
+			}
+		}
     }
 </script>
 </body>
