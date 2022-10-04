@@ -16,6 +16,7 @@ namespace N1990.Episerver.Cms.Audit.Controllers
 	        _cmsAuditor = cmsAuditor;
         }
 
+        [Route("/EPiServer/cmsaudit/blocktypes")]
         public ActionResult Index()
         {
             var model = new CmsAuditPage();

@@ -22,7 +22,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                 new UrlMenuItem(
                         _localizationService.GetString("/cmsaudit/menus/audit", "Audit"),
                         MenuPath,
-                        Paths.ToResource("CmsAudit", "CmsAudit"))
+                        "/EPiServer/cmsaudit/sites")
                 {
                     IsAvailable = _ => true,
                     SortIndex = int.MaxValue
@@ -32,7 +32,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                 new UrlMenuItem(
                     _localizationService.GetString("/cmsaudit/menus/audit/sites", "Sites"),
                     MenuPath + "sites",
-                    Paths.ToResource("CmsAudit", "CmsAudit"))
+                    "/EPiServer/cmsaudit/sites")
                 {
                     IsAvailable = _ => true,
                     SortIndex = 100
@@ -42,7 +42,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                 new UrlMenuItem(
                     _localizationService.GetString("/cmsaudit/menus/audit/pagetypes", "Page Types"),
                     MenuPath + "pagetypes",
-                    Paths.ToResource("CmsAudit", "PageTypes"))
+                    "/EPiServer/cmsaudit/pagetypes")
                 {
                     IsAvailable = _ => true,
                     SortIndex = 200
@@ -52,7 +52,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                 new UrlMenuItem(
                     _localizationService.GetString("/cmsaudit/menus/audit/blocktypes", "Block Types"),
                     MenuPath + "blocktypes",
-                    Paths.ToResource("CmsAudit", "BlockTypes"))
+                    "/EPiServer/cmsaudit/blocktypes")
                 {
                     IsAvailable = _ => true,
                     SortIndex = 300
@@ -62,7 +62,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                 new UrlMenuItem(
                     _localizationService.GetString("/cmsaudit/menus/audit/visitorgroups", "Visitor Groups"),
                     MenuPath + "visitorgroups",
-                    Paths.ToResource("CmsAudit", "VisitorGroups"))
+                    "/EPiServer/cmsaudit/visitorgroup")
                 {
                     IsAvailable = _ => true,
                     SortIndex = 400
