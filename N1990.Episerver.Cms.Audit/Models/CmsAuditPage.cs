@@ -1,4 +1,3 @@
-using EPiServer.Personalization.VisitorGroups;
 using System;
 using System.Collections.Generic;
 
@@ -16,7 +15,5 @@ namespace N1990.Episerver.Cms.Audit.Models
 		{
 			Sites = new List<SiteAudit>();
 		}
-		
-
 	}
 }
