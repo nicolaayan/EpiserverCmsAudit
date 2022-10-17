@@ -8,8 +8,7 @@ namespace N1990.Episerver.Cms.Audit.Business
 {
     public static class HtmlHelpers
     {
-        public static IHtmlString RenderBreadcrumbs(this HtmlHelper helper, 
-            ContentTypeAudit.ContentItem contentItem)
+        public static IHtmlString RenderBreadcrumbs(this HtmlHelper helper, ContentItem contentItem)
         {
             var urlResolver = ServiceLocator.Current.GetInstance<UrlHelper>();
             var htmlString = "<a href =\"" + urlResolver.ContentUrl(contentItem.ContentLink) 

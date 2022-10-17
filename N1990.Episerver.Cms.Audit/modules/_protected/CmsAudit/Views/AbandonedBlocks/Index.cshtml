@@ -1,0 +1,54 @@
+@using N1990.Episerver.Cms.Audit.Models
+@model AbandonedBlocks
+@{
+	Layout = "../Shared/_layout.cshtml"; /*ToDo:Layout*/
+}
+
+<div id="cms-content-types" data-type="block">
+	@if (Model.JobLastRunTime == DateTime.MaxValue)
+	{
+		<div class="alert alert-primary" role="alert">
+			We are currently collecting data to show here. <a href="@Url.Action("", "AbandonedBlocks")" class="btn btn-info">Click here to refresh</a>
+		</div>
+	}
+	else if (((TimeSpan)(DateTime.Now - Model.JobLastRunTime)).TotalHours > 24)
+	{
+		<div class="alert alert-success" role="alert">
+			It's been more than 24h since we last ran the job to identify block type usage. <a href="@Url.Action("RunJob", "AbandonedBlocks")" class="btn btn-info">Run it now?</a>
+		</div>
+	}
+	@*<div class="progress progress-striped">
+			<div class="progress-bar progress-bar-info" style="width: @(100/Model.ContentTypes.Count)%">
+				Working on it...
+			</div>
+		</div>*@
+	<table class="table table-responsive" id="tbl-content-types">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Block type</th>
+				<th>CMS-Link</th>
+				<th><i class="glyphicon glyphicon-trash"></i></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var contentReference in Model.ContentReferences)
+			{
+				<tr data-contenttypeid="@contentReference.ContentLink.ID" class="ctid-@contentReference.ContentLink.ID">
+					<td class="number">@contentReference.ContentLink.ID</td>
+					<td>@contentReference.Name</td>
+					<td class="usages">
+						<a href="/Smarthouse/CMS/#context=epi.cms.contentdata:///@contentReference.ContentLink.ID" target="_blank">Go to Block...</a>
+					</td>
+					<td>
+						<a href="#" target="_blank" style="color:red">
+							<i class="glyphicon glyphicon-trash"></i>
+						</a>
+					</td>
+				</tr>
+
+			}
+		</tbody>
+	</table>
+</div>
+

@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using EPiServer.Core;
 
 namespace N1990.Episerver.Cms.Audit.Models
 {
@@ -27,28 +25,6 @@ namespace N1990.Episerver.Cms.Audit.Models
         public ContentTypeAudit()
 		{
 			Usages = new List<ContentItem>();
-		}
-
-		public class ContentItem
-		{
-            public Guid SiteId { get; set; }
-			public string Name { get; set; }
-			public ContentReference ContentLink { get; set; }
-            public ContentItem Parent { get; set; }
-
-            // Used for block references
-            public List<PageReference> PageReferences { get; set; }
-            public class PageReference
-		    {
-		        public string Name;
-		        public ContentReference ContentLink;
-		        public Guid SiteId;
-		    }
-
-		    public ContentItem()
-		    {
-		        PageReferences = new List<PageReference>();
-		    }
 		}
 	}
 }

@@ -52,7 +52,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                     {
                         ContentTypeId = ct.ID,
                         Name = string.IsNullOrEmpty(ct.DisplayName) ? ct.Name : ct.DisplayName,
-                        Usages = new List<ContentTypeAudit.ContentItem>()
+                        Usages = new List<ContentItem>()
                     })
                 .ToList();
         }
@@ -93,7 +93,7 @@ namespace N1990.Episerver.Cms.Audit.Business
             {
                 ContentTypeId = contentTypeId,
                 Name = contentType.Name,
-                Usages = new List<ContentTypeAudit.ContentItem>()
+                Usages = new List<ContentItem>()
             };
 
             var contentModelUsages = _contentModelUsage.ListContentOfContentType(contentType)
@@ -116,27 +116,22 @@ namespace N1990.Episerver.Cms.Audit.Business
             {
                 var siteDefinition = _siteDefinitionResolver.GetByContent(cmu.ContentLink, true);
 
-                contentTypeAudit.Usages.Add(new ContentTypeAudit.ContentItem
+                contentTypeAudit.Usages.Add(new ContentItem
                 {
                     Name = cmu.Name,
                     ContentLink = cmu.ContentLink,
                     SiteId = siteDefinition?.Id ?? Guid.Empty,
                     Parent = includeParentDetail && cmu.ContentItem.ParentLink != ContentReference.EmptyReference
-                        ? new ContentTypeAudit.ContentItem
+                        ? new ContentItem
                         {
                             Name = _contentRepository.Get<IContent>(cmu.ContentItem.ParentLink).Name,
                             ContentLink = cmu.ContentItem.ParentLink
                         }
                         : null,
-                    PageReferences = includeReferences
+                    ParentReferences = includeReferences
                         ? _contentRepository.GetReferencesToContent(cmu.ContentLink, true)
-                            .Select(rtc => new ContentTypeAudit.ContentItem.PageReference
-                            {
-                                Name = rtc.OwnerName,
-                                ContentLink = rtc.OwnerID,
-                                SiteId = _siteDefinitionResolver.GetByContent(rtc.OwnerID, true)?.Id ?? Guid.Empty
-                            }).ToList()
-                        : new List<ContentTypeAudit.ContentItem.PageReference>()
+                            .Select(rtc => new ContentReferenceDetails(rtc, _siteDefinitionResolver)).ToList()
+                        : new List<ContentReferenceDetails>()
                 });
 
             }
@@ -188,10 +183,10 @@ namespace N1990.Episerver.Cms.Audit.Business
         /// <param name="contentReference"></param>
         /// <param name="contentTypes"></param>
         /// <param name="parentContentItem"></param>
-        private void AddPageContentTypeToList(ContentReference contentReference, List<ContentTypeAudit> contentTypes, ContentTypeAudit.ContentItem parentContentItem)
+        private void AddPageContentTypeToList(ContentReference contentReference, List<ContentTypeAudit> contentTypes, ContentItem parentContentItem)
         {
             var pageData = _contentRepository.Get<PageData>(contentReference);
-            var newContentItem = new ContentTypeAudit.ContentItem
+            var newContentItem = new ContentItem
             {
                 Name = pageData.Name,
                 ContentLink = contentReference,
@@ -209,7 +204,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                     Name = string.IsNullOrEmpty(contentType.DisplayName)
                         ? contentType.Name
                         : contentType.DisplayName,
-                    Usages = new List<ContentTypeAudit.ContentItem> { newContentItem }
+                    Usages = new List<ContentItem> { newContentItem }
                 });
             }
             else
