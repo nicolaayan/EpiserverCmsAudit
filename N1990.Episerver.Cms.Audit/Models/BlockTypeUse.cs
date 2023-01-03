@@ -1,7 +1,6 @@
 ﻿using EPiServer.Data;
 using EPiServer.Data.Dynamic;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace N1990.Episerver.Cms.Audit.Models
@@ -37,6 +36,5 @@ namespace N1990.Episerver.Cms.Audit.Models
             var store = DynamicDataStoreFactory.Instance.CreateStore(typeof(BlockTypeUse));
             store.DeleteAll();
         }
-
     }
 }

@@ -1,7 +1,8 @@
 using System;
 using System.Linq;
-using System.Web.Mvc;
 using EPiServer.DataAbstraction;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using N1990.Episerver.Cms.Audit.Business;
 using N1990.Episerver.Cms.Audit.Models;
 
@@ -16,7 +17,7 @@ namespace N1990.Episerver.Cms.Audit.Controllers
 	    {
 	        _cmsAuditor = cmsAuditor;
 	    }
-
+        
         public ActionResult Index()
         {
             var model = new CmsAuditPage();

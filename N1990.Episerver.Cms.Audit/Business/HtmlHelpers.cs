@@ -1,26 +1,23 @@
-﻿using System.Web;
-using System.Web.Mvc;
-using EPiServer.ServiceLocation;
-using EPiServer.Web.Mvc.Html;
+﻿using EPiServer.Web.Routing;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using N1990.Episerver.Cms.Audit.Models;
 
 namespace N1990.Episerver.Cms.Audit.Business
 {
     public static class HtmlHelpers
     {
-        public static IHtmlString RenderBreadcrumbs(this HtmlHelper helper, 
+        public static HtmlString RenderBreadcrumbs(this IHtmlHelper helper, 
             ContentTypeAudit.ContentItem contentItem)
         {
-            var urlResolver = ServiceLocator.Current.GetInstance<UrlHelper>();
-            var htmlString = "<a href =\"" + urlResolver.ContentUrl(contentItem.ContentLink) 
-                                           + "\" target=\"_blank\">" + contentItem.Name + "</a>";
+            var htmlString = "<a href =\"" + UrlResolver.Current.GetUrl(contentItem.ContentLink) + "\" target=\"_blank\">" + contentItem.Name + "</a>";
             while (contentItem.Parent != null)
             {
                 contentItem = contentItem.Parent;
                 htmlString = (contentItem.Parent == null ? "Home" : contentItem.Name) + " > " + htmlString;
             }
 
-            return new MvcHtmlString(htmlString);
+            return new HtmlString(htmlString);
         }
     }
 }

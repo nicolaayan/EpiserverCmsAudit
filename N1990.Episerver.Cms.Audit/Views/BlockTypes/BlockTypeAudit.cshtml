@@ -1,3 +1,4 @@
+@using Microsoft.AspNetCore.Mvc.Razor
 @using N1990.Episerver.Cms.Audit.Models
 @model N1990.Episerver.Cms.Audit.Models.ContentTypeAudit
 
@@ -26,8 +27,9 @@
 	</td>
 </tr>
 
-@helper RenderBlockUsages(List<ContentTypeAudit.ContentItem> usages)
-{
-	var siteUsages = usages.SelectMany(u => u.PageReferences.Select(pr => pr.SiteId)).Distinct().ToList().Count;
-	<span>@siteUsages site(s), @usages.Count block(s)</span>
-}
+@{ HelperResult RenderBlockUsages(List<ContentTypeAudit.ContentItem> usages)
+	{
+		var siteUsages = usages.SelectMany(u => u.PageReferences.Select(pr => pr.SiteId)).Distinct().ToList().Count;
+		<span>@siteUsages site(s), @usages.Count block(s)</span>
+		return new HelperResult(w => Task.CompletedTask);
+} }
