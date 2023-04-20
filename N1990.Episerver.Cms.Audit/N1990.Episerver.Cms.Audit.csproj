@@ -5,14 +5,14 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>        
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <Version>3.3.0</Version>
+        <Version>3.3.2</Version>
         <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     </PropertyGroup>
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="EPiServer.CMS.UI.Core" Version="[12.4.0, 13.0.0)"/>
-        <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="[12.4.0, 13.0.0)"/>        
+        <PackageReference Include="EPiServer.CMS.UI.Core" Version="[12.4.0, 13.0.0)" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="[12.4.0, 13.0.0)" />        
     </ItemGroup>    
 </Project>
