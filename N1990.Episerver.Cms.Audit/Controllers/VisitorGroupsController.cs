@@ -1,6 +1,4 @@
-using System;
 using System.Linq;
-using EPiServer.DataAbstraction;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using N1990.Episerver.Cms.Audit.Business;
@@ -8,7 +6,7 @@ using N1990.Episerver.Cms.Audit.Models;
 
 namespace N1990.Episerver.Cms.Audit.Controllers
 {
-    [Authorize(Roles = "AuditAdmins")]
+    [Authorize(Roles = "AuditAdmins,CmsAdmins")]
     public class VisitorGroupsController : Controller
     {
         private readonly ICmsAuditor _cmsAuditor;

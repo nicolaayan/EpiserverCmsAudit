@@ -1,7 +1,7 @@
 @using N1990.Episerver.Cms.Audit.Models
 @model CmsAuditPage
 @{
-    Layout = "../Shared/_layout.cshtml";
+    Layout = "../Shared/_auditlayout.cshtml";
     var pageTypeCtr = 1;
 }
 
@@ -9,13 +9,13 @@
 		@if (Model.JobLastRunTime == DateTime.MaxValue)
 		{
 			<div class="alert alert-primary" role="alert">
-				We are currently collecting data to show here. <a href="@Url.Action("", "BlockTypes")" class="btn btn-info">Click here to refresh</a>
+				We are currently collecting data to show here. <a href="@Url.Action("", "blocktypes")" class="btn btn-primary">Click here to refresh</a>
 			</div>
 		}
 		else if (((TimeSpan)(DateTime.Now - Model.JobLastRunTime)).TotalHours > 24)
 		{
 			<div class="alert alert-success" role="alert">
-				It's been more than 24h since we last ran the job to identify block type usage. <a href="@Url.Action("RunJob", "BlockTypes")" class="btn btn-info">Run it now?</a>
+				It's been more than 24h since we last ran the job to identify block type usage. <a href="@Url.Action("RunJob", "blocktypes")" class="btn btn-info">Run it now?</a>
 			</div>
 		}
 		<div class="progress progress-striped">
@@ -29,7 +29,7 @@
 					<th></th>
 					<th>Block type</th>
 					<th>Usages</th>
-					<th><i class="glyphicon glyphicon-info-sign"></i></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
