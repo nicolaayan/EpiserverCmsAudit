@@ -9,7 +9,7 @@
 		@if (Model.JobLastRunTime == DateTime.MaxValue)
 		{
 			<div class="alert alert-primary" role="alert">
-				We are currently collecting data to show here. <a href="@Url.Action("", "BlockTypes")" class="btn btn-info">Click here to refresh</a>
+				We are currently collecting data to show here. <a href="@Url.Action("", "BlockTypes")" class="btn btn-primary">Click here to refresh</a>
 			</div>
 		}
 		else if (((TimeSpan)(DateTime.Now - Model.JobLastRunTime)).TotalHours > 24)
@@ -29,7 +29,7 @@
 					<th></th>
 					<th>Block type</th>
 					<th>Usages</th>
-					<th><i class="glyphicon glyphicon-info-sign"></i></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>

@@ -19,7 +19,7 @@ namespace N1990.Episerver.Cms.Audit.Models
 	        $"{Usages.Select(u => u.SiteId).Distinct().ToList().Count} site(s), {Usages.Count} page(s)";
 
 	    public string UsagesExpandButton => Usages.Count > 0
-	        ? "<button class=\"btn btn-xs btn-info\" onclick=\"toggleNextHiddenTr(this)\"><i class=\"glyphicon glyphicon-collapse-down\"></i></button>"
+	        ? "<button class=\"btn btn-secondary btn-sm\" onclick=\"toggleNextHiddenTr(this)\"><i class=\"bi bi-arrow-down\"></i></button>"
 	        : "";
 
         #endregion

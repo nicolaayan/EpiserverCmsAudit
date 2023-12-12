@@ -7,9 +7,10 @@
 	<title>CMS Site Audit</title>
 	<!-- Shell -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+	
 	<style>
-		body { background-color: #efefef;
-		font-size: ;
+		body { background-color: #efefef;		
 		 }
 		main { background-color: #fff; }
 		.tab-content {
@@ -88,17 +89,8 @@
 		.container {
             display: block;
             padding-top: 70px;
-		}
-			
-		.mdc-top-app-bar__title
-		{
-		    font-size: inherit !important;
-		}
-			
-		.mdc-tab
-		{
-		    font-size: inherit !important;
-		}
+		}		
+		
 		
 	</style>
 </head>
@@ -129,10 +121,10 @@
         var $nextTr = $parentTr.next();
         if ($nextTr.hasClass('hidden')) {
             $nextTr.removeClass('hidden');
-            $(btn).find('i').removeClass('glyphicon-collapse-down').addClass('glyphicon-collapse-up');
+            $(btn).find('i').removeClass('bi-arrow-down').addClass('bi-arrow-up');
         } else {
             $nextTr.addClass('hidden');
-            $(btn).find('i').removeClass('glyphicon-collapse-up').addClass('glyphicon-collapse-down');
+            $(btn).find('i').removeClass('bi-arrow-up').addClass('bi-arrow-down');
         }
     }
     function initTabs() {
@@ -185,7 +177,7 @@
     }
     function getContentTypeAudits() {
         var index = 0;
-        $contentTypes = $('#tbl-content-types tr');
+        $contentTypes = $('#tbl-content-types tbody tr');
         if ($contentTypes.length > 0) {
             $contentTypes.each(function (tab) {
                 getContentTypeAudit(this, index++);

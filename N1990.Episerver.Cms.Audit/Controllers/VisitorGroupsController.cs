@@ -6,7 +6,7 @@ using N1990.Episerver.Cms.Audit.Models;
 
 namespace N1990.Episerver.Cms.Audit.Controllers
 {
-    [Authorize(Roles = "AuditAdmins")]
+    [Authorize(Roles = "AuditAdmins,CmsAdmins")]
     public class VisitorGroupsController : Controller
     {
         private readonly ICmsAuditor _cmsAuditor;
