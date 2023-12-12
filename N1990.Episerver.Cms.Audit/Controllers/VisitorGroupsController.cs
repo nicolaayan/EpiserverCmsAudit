@@ -1,6 +1,4 @@
-using System;
 using System.Linq;
-using EPiServer.DataAbstraction;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using N1990.Episerver.Cms.Audit.Business;
