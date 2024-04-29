@@ -6,7 +6,7 @@
     Layout = "../Shared/_layout.cshtml";
     var pageTypeCtr = 1;
 }
-<div id="cms-content-types" data-type="visitor">
+<div id="cms-content-types" style="max-height: calc(100vh - 110px); overflow-y: scroll;" data-type="visitor">
     @if (Model.JobLastRunTime == DateTime.MaxValue)
     {
         <div class="alert alert-primary" role="alert">
