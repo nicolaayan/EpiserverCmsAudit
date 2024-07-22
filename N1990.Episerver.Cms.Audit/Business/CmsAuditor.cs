@@ -91,7 +91,7 @@ namespace N1990.Episerver.Cms.Audit.Business
             var contentTypeAudit = new ContentTypeAudit
             {
                 ContentTypeId = contentTypeId,
-                Name = contentType.Name,
+                Name = contentType.DisplayName,
                 Usages = new List<ContentTypeAudit.ContentItem>()
             };
 
