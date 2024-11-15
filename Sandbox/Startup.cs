@@ -29,9 +29,13 @@ public class Startup
             .AddCmsAspNetIdentity<ApplicationUser>()
             .AddCms()
             .AddAlloy()
-            .AddAdminUserRegistration()
-            .AddEmbeddedLocalization<Startup>()
-            .AddAuditServices();
+            .AddAdminUserRegistration(
+                opt => 
+                    { opt.Behavior = EPiServer.Cms.Shell.UI.RegisterAdminUserBehaviors.Enabled; }
+            )
+            .AddEmbeddedLocalization<Startup>();
+            
+        services.AddAuditServices();
         
 
         // Required by Wangkanai.Detection

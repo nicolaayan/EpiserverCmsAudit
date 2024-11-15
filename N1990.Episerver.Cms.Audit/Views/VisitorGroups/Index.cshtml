@@ -16,14 +16,14 @@
     else if (((TimeSpan)(DateTime.Now - Model.JobLastRunTime)).TotalHours > 24)
     {
         <div class="alert alert-success" role="alert">
-            It's been more than 24h since we last ran the job to identify visitor group usage. <a href="@Url.Action("RunVGJob", "visitorgroups")" class="btn btn-info">Run it now?</a>
+            It's been more than 24h since we last ran the job to identify audience usage. <a href="@Url.Action("RunVGJob", "visitorgroups")" class="btn btn-info">Run it now?</a>
         </div>
     }
     <table class="table table-responsive" id="tbl-content-types">
         <thead>
             <tr>
                 <th></th>
-                <th>Visitor Group</th>
+                <th>Audience</th>
                 <th>Usages</th>
                 <th></th>
             </tr>

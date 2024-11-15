@@ -60,7 +60,7 @@ namespace N1990.Episerver.Cms.Audit.Business
 
             var menuVisitorGroups =
                 new UrlMenuItem(
-                    _localizationService.GetString("/cmsaudit/menus/audit/visitorgroups", "Visitor Groups"),
+                    _localizationService.GetString("/cmsaudit/menus/audit/visitorgroups", "Audiences"),
                     MenuPath + "visitorgroups", 
                     Paths.ToResource("CMSAudit", "visitorgroups"))
                 {
