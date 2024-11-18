@@ -21,7 +21,7 @@ or
 dotnet add package N1990.Episerver.Cms.Audit
 ```
 
-Configure services during startup (without this, you will not see module under Add-ons in the UI)
+Configure services and routing during startup (without this, you will not see module under Add-ons in the UI)
 ```csharp
 public class Startup
 {
@@ -31,6 +31,21 @@ public class Startup
         services.AddAuditServices();
         //...
     }
+    
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        //...
+        app.UseEndpoints(endpoints =>
+        {
+            
+            // other endpoint configuration
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+        });
+        //...
+    }
+   
 }
 ```
 # Security
