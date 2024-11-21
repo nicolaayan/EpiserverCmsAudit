@@ -1,18 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
     <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Version>3.4.0</Version>
+        <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
         <OutputType>Library</OutputType>        
+        <Title>Audit for Optimizely CMS</Title>
+        <Authors>Nicola Ayan, Allan Thraen and David Knipe</Authors>
+        <Description>Provides visualisation of how Optimizely content types and audiences are used across sites</Description>
+        <PackageProjectUrl>https://github.com/nicolaayan/EpiserverCmsAudit</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/nicolaayan/EpiserverCmsAudit</RepositoryUrl>
+        <PackageTags>EPiServerModulePackage Episerver CMS Audit</PackageTags>
     </PropertyGroup>
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>        
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <Version>3.3.0</Version>
-        <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="EPiServer.CMS.UI.Core" Version="[12.4.0, 13.0.0)"/>
-        <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="[12.4.0, 13.0.0)"/>        
+        <PackageReference Include="EPiServer.CMS.UI.Core" Version="[12.4.0, 13.0.0)" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="[12.4.0, 13.0.0)" />        
     </ItemGroup>    
 </Project>

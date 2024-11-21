@@ -11,7 +11,7 @@ using EPiServer.Security;
 
 namespace N1990.Episerver.Cms.Audit.Business
 {
-    [ScheduledPlugIn(DisplayName = "Visitor Group Audit Job")]
+    [ScheduledPlugIn(DisplayName = "Audience Audit Job")]
     public class VisitorGroupAudit : ScheduledJobBase
     {
         private bool _stopSignaled;
@@ -36,7 +36,7 @@ namespace N1990.Episerver.Cms.Audit.Business
         public override string Execute()
         {
             //Call OnStatusChanged to periodically notify progress of job for manually started jobs
-            OnStatusChanged(String.Format("Investigating usage of Visitor Groups"));
+            OnStatusChanged(String.Format("Investigating usage of Audiences"));
 
             //Add implementation
             var repo = ServiceLocator.Current.GetInstance<IContentRepository>();
@@ -80,7 +80,7 @@ namespace N1990.Episerver.Cms.Audit.Business
                         if (ca == null) continue;
                         foreach (var f in ca.Items.Where(l => l.AllowedRoles != null && l.AllowedRoles.Any()))
                         {
-                            //Match! This page uses the visitor groups in l.AllowedRoles. Record.
+                            //Match! This page uses the audiences in l.AllowedRoles. Record.
                             foreach (var r in f.AllowedRoles)
                             {
                                 usesfound++;
@@ -130,7 +130,7 @@ namespace N1990.Episerver.Cms.Audit.Business
             }
 
 
-            return string.Format("Done looking through content. Found {0} uses of visitor groups in {1} content elements",usesfound,cnt);
+            return string.Format("Done looking through content. Found {0} uses of audiences in {1} content elements",usesfound,cnt);
         }
     }
 }
